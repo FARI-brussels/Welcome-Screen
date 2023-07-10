@@ -2,14 +2,11 @@
 
 ## Install
 ```
-pip install -r requirements.txt
+clone repo 
 ```
 ## Run
-- First run the specific demo in local (Here it's Flet application)
-
-- Next, make sure that the Strapi API is running somewhere (https://github.com/jbaudru/FARi-Strapi_contentmanager).
-
-- Then, run the Welcome page where *x* is the ID of the desired Welcome page (see below). 
+- python server.py
 ```
-python3 main.py --scrapi_id x
-```
+access on http://localhost:8080/demo_id \
+
+where demo id range from 0 to 12
