@@ -2,10 +2,9 @@ async function loadDemo() {
   await loadDemoFromStrapi();
   const currentDemoContent = demoContent.data[demoPosition];
   if (currentDemoContent.attributes.type == "website") {
-    demoContainer = `<iframe id="inlineFrameExample" class="zoom-out" 
+    demoContainer = `<iframe id="inlineFrameExample" class="responsive-iframe" 
         title="Inline Frame Example"
-        width="1880"
-        height="1800"
+        
         src="${currentDemoContent.attributes.appURL}">
         </iframe>`;
   } else if (currentDemoContent.attributes.type == "video") {
@@ -42,9 +41,7 @@ async function loadDemo() {
         <button class="demo-learnmore-button" class="button-learnMore" onclick="navigate(\'learnMore\')">
           <i class="ph ph-question" style="font-size: 24px"></i>
           <i class="demo-button-text">&nbsp;&nbsp; Learn More</i>
-        </button> 
-
-        
+        </button>  
     </div>
 
   

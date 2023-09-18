@@ -1,7 +1,6 @@
 async function loadHome() {
   await loadDemoFromStrapi();
   const currentDemoContent = demoContent.data[demoPosition];
-  
   const sdgUrlList = currentDemoContent.attributes.images_sdg.data.map(
     (a) => strapiUrl + a.attributes.url
   );
@@ -23,7 +22,7 @@ async function loadHome() {
 
   // Get the selected language from the global variable
   const selectedLanguageText = selectedLanguage || "EN"; // Default to 'EN' if selectedLanguage is empty
-
+  console.log(currentDemoContent.attributes)
   return `
   
   <head>
@@ -60,7 +59,7 @@ async function loadHome() {
       </div>
       </div>
       <div class="homeButtonDemoContainer">
-        <button id="homeButtonDemo" onclick="navigate('demo')">Start the Demo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;</button>
+        <button id="homeButtonDemo" onclick="navigate('demo')">${currentDemoContent.attributes["button_demo_start"]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;</button>
       </div>
     </div>
     

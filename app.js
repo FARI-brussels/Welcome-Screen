@@ -5,6 +5,7 @@ let demoPosition = parseInt(window.location.pathname.split("/")[1]);
 //if now demo id is supplied in the url then return to demo 3 (simplex)
 
 demoPosition = Number.isInteger(demoPosition) ? demoPosition : 3;
+
 let demoContent;
 
 async function loadDemoFromStrapi() {
@@ -64,4 +65,4 @@ async function navigate(page) {
 }
 
 // Initially load the home page
-navigate("languages");
+navigate("home");
