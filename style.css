@@ -313,6 +313,7 @@ body {
   left: 38.73681640625px;
   align-items: center;
   margin-bottom: 10px;
+  position: fixed;
 }
 
 .page-header-demo i {
@@ -344,3 +345,16 @@ body {
 }
 
 /* Demo Page End */
+#demoContainer {
+  margin-top: 100px; /* Adjust based on your header's height */
+  height: calc(100% - 60px); /* Adjust based on your header's height */
+  overflow: auto;
+  
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  height:800px;
+}
