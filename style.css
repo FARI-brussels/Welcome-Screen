@@ -346,7 +346,7 @@ body {
 
 /* Demo Page End */
 #demoContainer {
-  margin-top: 100px; /* Adjust based on your header's height */
+  margin-top: 80px; /* Adjust based on your header's height */
   height: calc(100% - 60px); /* Adjust based on your header's height */
   overflow: auto;
   
