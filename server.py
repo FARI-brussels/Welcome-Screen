@@ -7,7 +7,8 @@ import requests
 STRAPI_URL = "http://46.226.110.124:1337/"
 DEMO_URL = STRAPI_URL + "api/demos?locale=en"
 #Because of the shitiness of strapi localization we have to rely on the position of the demo in strapi rather than its id
-DEMO_POSITIONS = range(len(requests.get(DEMO_URL).json()["data"]))
+#DEMO_POSITIONS = range(len(requests.get(DEMO_URL).json()["data"]))
+DEMO_POSITIONS = range(20)
 print(['/'] + [f'{str(id)}' for id in DEMO_POSITIONS])
 
 
