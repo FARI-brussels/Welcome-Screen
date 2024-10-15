@@ -1,21 +1,19 @@
 async function loadDemo() {
-  await loadDemoFromStrapi();
-  const currentDemoContent = demoContent.data[demoPosition];
-  if (currentDemoContent.attributes.type == "website") {
+  await loadDemoFromDirectus();
+  const selectedLanguageText = selectedLanguage || "en"; // Default to 'EN' if selectedLanguage is empty
+  let translations = demoContent.translations.find(translation => translation.languages_code===selectedLanguageText)
+  console.log(translations);
+  if (translations.app_url){
     demoContainer = `<iframe id="inlineFrameExample" class="zoom-out" 
         title="Inline Frame Example"
-        src="${currentDemoContent.attributes.appURL}">
+        src="${translations.app_url}">
         </iframe>`;
-  } else if (currentDemoContent.attributes.type == "video") {
-    console.log(currentDemoContent.attributes);
+  } else if (demoContent.video) {
+    console.log(demoContent.attributes);
     videoUrl =
-      strapiUrl + currentDemoContent.attributes.video.data.attributes.url;
+      strapiUrl + demoContent.attributes.video.data.attributes.url;
     demoContainer = `<video src="${videoUrl}" controls autoplay></video>`;
-  } else if (currentDemoContent.attributes.type == "app") {
-    pass;
   }
-  console.log(currentDemoContent.attributes.type);
-  const selectedLanguageText = selectedLanguage || "EN"; // Default to 'EN' if selectedLanguage is empty
   return `
 
     

@@ -1,21 +1,15 @@
 import http.server
 import socketserver
-import os
-import requests
+import re
 
 
-STRAPI_URL = "http://46.226.110.124:1337/"
-DEMO_URL = STRAPI_URL + "api/demos?locale=en"
-#Because of the shitiness of strapi localization we have to rely on the position of the demo in strapi rather than its id
-#DEMO_POSITIONS = range(len(requests.get(DEMO_URL).json()["data"]))
-DEMO_POSITIONS = range(20)
-print(['/'] + [f'{str(id)}' for id in DEMO_POSITIONS])
 
 
 class MyHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
-        #get all demo ids
-        if self.path in ['/'] + [f'/{str(id)}' for id in DEMO_POSITIONS]:
+
+    
+        if self.path == '/' or re.match(r'^/\d+$', self.path):
             self.path = '/index.html'
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
 

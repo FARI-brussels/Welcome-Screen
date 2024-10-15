@@ -17,7 +17,7 @@ function loadLanguages() {
         <p class="languageText">Nederlands</p>
       </button>
 
-      <button class="languageButton" onclick="setSelectedLanguage('fr-FR'); setLanguage('fr-FR'); navigate('home')">
+      <button class="languageButton" onclick="setSelectedLanguage('fr'); setLanguage('fr-FR'); navigate('home')">
         <img src="assets/fr.svg" class="languageFlag">
         <p class="languageText">Français</p>
       </button>
@@ -27,5 +27,5 @@ function loadLanguages() {
 
 // Function to set the selected language variable
 function setSelectedLanguage(language) {
-  selectedLanguage = language.substring(0, 2).toUpperCase();
+  selectedLanguage = language.substring(0, 2);
 }
