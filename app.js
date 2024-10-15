@@ -1,25 +1,34 @@
 let language = "en"; // Default to English
-let strapiUrl = "http://46.226.110.124:1337";
+let directusUrl = "https://fari-cms.directus.app";
 let pageHistory = ["home"]; // Start with the home page
-let demoPosition = parseInt(window.location.pathname.split("/")[1]);
-//if now demo id is supplied in the url then return to demo 3 (simplex)
 
-demoPosition = Number.isInteger(demoPosition) ? demoPosition : 3;
+
+let demoId = parseInt(window.location.pathname.split("/")[1]);
+//if now demo id is supplied in the url then return to demo 3 (simplex)
+const access_token = "vgVJBSjtM1gueChZgpXV52IkryKFLM5A";
+
+demoId = Number.isInteger(demoId) ? demoId : 58;
 
 let demoContent;
 
-async function loadDemoFromStrapi() {
-  try {
-    const response = await fetch(
-      `${strapiUrl}/api/demos?locale=${language}&populate=*`
-    );
-    if (!response.ok) {
-      console.log("yo");
+async function loadDemoFromDirectus() {
+    try {
+        const response = await axios.get(`${directusUrl}/items/demos`, {
+          headers: {
+              'Authorization': `Bearer ${access_token}`  // Include token here
+          },
+          params: {
+              fields: '*.*', // Fetch all fields including all translations
+          }});
+        if (!response.ok) {
+            console.log("yo");
+        }
+        
+        demos = await response.data;
+        demoContent = demos.data.find(demo => demo.id === demoId);
+    } catch (error) {
+        console.error("Error occurred: ", error);
     }
-    demoContent = await response.json();
-  } catch (error) {
-    console.error("Error occurred: ", error);
-  }
 }
 
 function setLanguage(lang) {

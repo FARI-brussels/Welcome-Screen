@@ -1,8 +1,9 @@
 async function loadHome() {
-  await loadDemoFromStrapi();
-  const currentDemoContent = demoContent.data[demoPosition];
-  const sdgUrlList = currentDemoContent.attributes.images_sdg.data.map(
-    (a) => strapiUrl + a.attributes.url
+  await loadDemoFromDirectus();
+  console.log(demoContent)
+
+  const sdgUrlList = demoContent.sdg_images.map(
+    (a) => `${directusUrl}/assets/${a.directus_files_id}`
   );
   const sdgImageElements = sdgUrlList
     .map(
@@ -10,10 +11,10 @@ async function loadHome() {
         `<img src="${url}" height=40px alt="SDG Image" style="margin-right:20px;" >`
     )
     .join("");
-  const partnerLogoUrlList = currentDemoContent.attributes.caroussel.data.map(
-    (a) => strapiUrl + a.attributes.url
+  const logos  = demoContent.logos.map(
+    (a) => `${directusUrl}/assets/${a.directus_files_id}`
   );
-  const partnerLogoImageElements = partnerLogoUrlList
+  const partnerLogoImageElements = logos
     .map(
       (url) =>
         `<div class="carouselItem"><img src="${url}" height=70px alt="SDG Image"></div>`
@@ -21,8 +22,10 @@ async function loadHome() {
     .join("");
 
   // Get the selected language from the global variable
-  const selectedLanguageText = selectedLanguage || "EN"; // Default to 'EN' if selectedLanguage is empty
-  console.log(currentDemoContent.attributes)
+  const selectedLanguageText = selectedLanguage || "en"; // Default to 'EN' if selectedLanguage is empty
+  console.log(selectedLanguageText);
+
+  let translations = demoContent.translations.find(translation => translation.languages_code===selectedLanguageText)
   return `
   
   <head>
@@ -41,14 +44,14 @@ async function loadHome() {
     <div class="instructions-demobutton">
       <div class="home-instructions">
         <div class="home-instructions-info">
-          <h1>${currentDemoContent.attributes["title"]}</h1>
-          <h2>${currentDemoContent.attributes["topic"]}</h2>
-          <p>${currentDemoContent.attributes["explanation_short"]}</p>
+          <h1>${translations['title']}</h1>
+          <h2>${translations['topic']}</h2>
+          <p>${translations['description']}</p>
         </div>
 
         <div class="home-instructions-research">
-          <p class="research_l"> <em>Research Head :</em> ${currentDemoContent.attributes["research_head"]}</p>
-          <p class="research_l"> <em>Research Lead :</em> ${currentDemoContent.attributes["research_lead"]}</p>
+          <p class="research_l"> <em>Research Head :</em> ${demoContent.research_head}</p>
+          <p class="research_l"> <em>Research Lead :</em> ${demoContent.research_lead}</p>
         </div>
         <div class="imageList">
           <p>SDG:&nbsp;&nbsp;</p>${sdgImageElements}
@@ -59,7 +62,7 @@ async function loadHome() {
       </div>
       </div>
       <div class="homeButtonDemoContainer">
-        <button id="homeButtonDemo" onclick="navigate('demo')">${currentDemoContent.attributes["button_demo_start"]}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;</button>
+        <button id="homeButtonDemo" onclick="navigate('demo')">Start Demo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;</button>
       </div>
     </div>
     
